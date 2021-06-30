@@ -9,7 +9,7 @@ namespace SehirRehberi.API.Models
     {
         public Photo()
         {
-            City = new List<Photo>();
+            //City = new List<Photo>();
         }
 
         public int Id { get; set; }
@@ -21,7 +21,7 @@ namespace SehirRehberi.API.Models
         public bool IsMain { get; set; }
         public string PublicId { get; set; }
 
-        public List<Photo> City { get; set; }
+        public City City { get; set; }
     }
 
 }
