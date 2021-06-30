@@ -46,7 +46,7 @@ namespace SehirRehberi.API.Data
             return photo;
         }
 
-        public List<Photo> GetPhotoByCity(int cityId)
+        public List<Photo> GetPhotosByCity(int cityId)
         {
             var photos = _context.Photos.Where(p => p.CityId == cityId).ToList();
             return photos;

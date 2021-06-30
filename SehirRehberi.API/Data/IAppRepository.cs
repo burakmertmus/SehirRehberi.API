@@ -15,6 +15,6 @@ namespace SehirRehberi.API.Data
         List<City> GetCities();
         City GetCityById(int cityId);
         Photo GetPhoto(int id);
-        List<Photo> GetPhotoByCity(int cityId);
+        List<Photo> GetPhotosByCity(int cityId);
     }
 }
