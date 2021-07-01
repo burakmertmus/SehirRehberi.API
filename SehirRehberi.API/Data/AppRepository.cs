@@ -29,6 +29,7 @@ namespace SehirRehberi.API.Data
             //
             
             var cities = _context.Cities.Include(c => c.Photos).ToList();
+            
             return cities;
         }
         
