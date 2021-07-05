@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SehirRehberi.API.Data;
 using SehirRehberi.API.Dtos;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace SehirRehberi.API.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("cities")]
     public class CitiesController : Controller
@@ -22,14 +24,15 @@ namespace SehirRehberi.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
         public ActionResult GetCities()
         {
 
             var cities = _appRepository.GetCities();
             //AutoMapper Olmasaydı
-           //     .Select(c =>
-           //     new CityForListDto { Description = c.Description, Name = c.Name, Id = c.Id, PhotoUrl = c.Photos.FirstOrDefault(p => p.IsMain == true).Url }).ToList();
-          var citiesToReturn = _mapper.Map<List<CityForListDto>>(cities);
+            //     .Select(c =>
+            //     new CityForListDto { Description = c.Description, Name = c.Name, Id = c.Id, PhotoUrl = c.Photos.FirstOrDefault(p => p.IsMain == true).Url }).ToList();
+            var citiesToReturn = _mapper.Map<List<CityForListDto>>(cities);
             return Ok(citiesToReturn);
         }
 
@@ -41,20 +44,22 @@ namespace SehirRehberi.API.Controllers
             _appRepository.SaveAll();
             return Ok(city);
         }
-        
-        
+
+
         [HttpGet]
         [Route("detail")]
         public ActionResult GetCityById(int id)
         {
 
             var city = _appRepository.GetCityById(id);
-             var cityToReturn = _mapper.Map<CityForDetailDto>(city);
+            var cityToReturn = _mapper.Map<CityForDetailDto>(city);
             return Ok(cityToReturn);
         }
 
-        [HttpGet]
-        [Route("photos")]
+
+        [HttpGet("cityId")]
+        [Authorize]
+        [Route("CityPhotos")]
         public ActionResult GetPhotosById(int cityId)
         {
             var photos = _appRepository.GetPhotosByCity(cityId);

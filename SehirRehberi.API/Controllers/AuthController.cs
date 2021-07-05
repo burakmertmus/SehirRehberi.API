@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace SehirRehberi.API.Controllers
 {
+    [Produces("application/json")]
     [Route("Auth")]
     public class AuthController : Controller
     {
@@ -65,6 +66,7 @@ namespace SehirRehberi.API.Controllers
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.UserName)
+                    
                 }),
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials=new SigningCredentials(new SymmetricSecurityKey(key),

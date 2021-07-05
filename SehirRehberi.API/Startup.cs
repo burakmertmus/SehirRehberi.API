@@ -9,13 +9,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using SehirRehberi.API.Data;
 using SehirRehberi.API.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 
 namespace SehirRehberi.API
 {
@@ -34,8 +38,8 @@ namespace SehirRehberi.API
 
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
-            
-            services.AddDbContext<DataContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().AddNewtonsoftJson(options =>
@@ -43,27 +47,109 @@ namespace SehirRehberi.API
             ); ;
 
             services.AddCors();
-            services.AddScoped<IAppRepository,AppRepository>();
+            services.AddScoped<IAppRepository, AppRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option=>
-                option.TokenValidationParameters=new TokenValidationParameters 
-                { 
-                    ValidateIssuerSigningKey= true,
-                    IssuerSigningKey=new SymmetricSecurityKey(key),
-                    ValidateIssuer=false,
-                    ValidateAudience=false,
-                });
-        }
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = true;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
+
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
+            //    option.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(key),
+            //        ValidateIssuer = false,
+            //        ValidateAudience = false,
+            //    });
+
+            //services.AddSwaggerGen();
+            services.AddSwaggerGen(gen =>
+            {
+                OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "JWT Authentication",
+                    Description = "Jwt Bearer Token **_only_**",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    },
+                };
+
+                gen.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+                gen.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {securityScheme, new string[] { }}
+                });
+                gen.UseAllOfToExtendReferenceSchemas();
+                gen.IncludeXmlCommentsFromInheritDocs(includeRemarks: true, excludedTypes: typeof(string));
+                gen.AddEnumsWithValuesFixFilters(services, o =>
+                {
+                    // add schema filter to fix enums (add 'x-enumNames' for NSwag) in schema
+                    o.ApplySchemaFilter = true;
+
+                    // add parameter filter to fix enums (add 'x-enumNames' for NSwag) in schema parameters
+                    o.ApplyParameterFilter = true;
+
+                    // add document filter to fix enums displaying in swagger document
+                    o.ApplyDocumentFilter = true;
+
+                    // add descriptions from DescriptionAttribute or xml-comments to fix enums (add 'x-enumDescriptions' for schema extensions) for applied filters
+                    o.IncludeDescriptions = true;
+
+                    // add remarks for descriptions from xml-comments
+                    o.IncludeXEnumRemarks = true;
+
+                    // get descriptions from DescriptionAttribute then from xml-comments
+                    o.DescriptionSource = DescriptionSources.DescriptionAttributesThenXmlComments;
+
+
+                });
+              
+
+            });
+
+
+
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowCredentials());
             app.UseHttpsRedirection();
 

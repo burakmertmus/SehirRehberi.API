@@ -11,7 +11,6 @@ namespace SehirRehberi.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-
     public class ValuesController : ControllerBase
     {
 
@@ -28,10 +27,11 @@ namespace SehirRehberi.API.Controllers
             return Ok(values);
 
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult> GetValue(int id)
         {
-            var value = await _context.Values.FirstOrDefaultAsync(v=>v.Id==id);
+            var value = await _context.Values.FirstOrDefaultAsync(v => v.Id == id);
             return Ok(value);
 
         }
