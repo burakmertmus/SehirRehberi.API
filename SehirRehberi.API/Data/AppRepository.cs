@@ -26,10 +26,13 @@ namespace SehirRehberi.API.Data
 
         public List<City> GetCities()
         {
-            var cities = _context.Cities.Include(c=>c.Photos).ToList();
+            //
+            
+            var cities = _context.Cities.Include(c => c.Photos).ToList();
+            
             return cities;
         }
-
+        
         public City GetCityById(int cityId)
         {
             var city = _context.Cities.Include(c => c.Photos).FirstOrDefault(c=>c.Id==cityId);
@@ -44,7 +47,7 @@ namespace SehirRehberi.API.Data
             return photo;
         }
 
-        public List<Photo> GetPhotoByCity(int cityId)
+        public List<Photo> GetPhotosByCity(int cityId)
         {
             var photos = _context.Photos.Where(p => p.CityId == cityId).ToList();
             return photos;
