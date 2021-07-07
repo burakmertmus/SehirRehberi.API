@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
+using EnvironmentName = Microsoft.Extensions.Hosting.EnvironmentName;
 
 namespace SehirRehberi.API
 {
@@ -135,7 +136,7 @@ namespace SehirRehberi.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            
+            env.EnvironmentName = EnvironmentName.Production;
 
             if (env.IsDevelopment())
             {

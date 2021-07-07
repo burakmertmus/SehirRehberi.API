@@ -58,7 +58,6 @@ namespace SehirRehberi.API.Controllers
 
 
         [HttpGet("cityId")]
-        [Authorize]
         [Route("CityPhotos")]
         public ActionResult GetPhotosById(int cityId)
         {
