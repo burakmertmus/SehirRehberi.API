@@ -23,5 +23,9 @@
     <PackageReference Include="Unchase.Swashbuckle.AspNetCore.Extensions" Version="2.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".circleci\config.yml" />
+  </ItemGroup>
+
 
 </Project>
