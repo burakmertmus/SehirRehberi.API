@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,16 +6,9 @@
     <AllowUntrustedCertificate>True</AllowUntrustedCertificate>
     <StartupObject>SehirRehberi.API.Program</StartupObject>
     <UserSecretsId>f3d85996-6ee9-420f-8d4e-54d104313650</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove=".circleci\**" />
-    <Content Remove=".circleci\**" />
-    <EmbeddedResource Remove=".circleci\**" />
-    <None Remove=".circleci\**" />
-  </ItemGroup>
-
+ 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
