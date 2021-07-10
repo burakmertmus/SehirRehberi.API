@@ -17,8 +17,7 @@ using System.Threading.Tasks;
 namespace SehirRehberi.API.Controllers
 {
     [Produces("application/json")]
-    [Authorize]
-    [Route("cities/photos/")]
+    [Route("cities/photos")]
     public class PhotosController : Controller
     {
         private IAppRepository _appRepository;
@@ -38,7 +37,7 @@ namespace SehirRehberi.API.Controllers
 
             _cloudinary = new Cloudinary(account);
         }
-
+        //./cities/photos/cityId?={{cityId}}
         [HttpPost]
         public ActionResult AddPhotoForCity(int cityId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
@@ -54,10 +53,6 @@ namespace SehirRehberi.API.Controllers
             {
                 currentUserId = int.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             }
-
-
-
-
 
             if (currentUserId != city.UserId)
             {
@@ -100,6 +95,9 @@ namespace SehirRehberi.API.Controllers
 
         }
 
+
+
+        //./cities/photos/{Id}
         [HttpGet("{Id}", Name = "GetPhoto")]
         public ActionResult GetPhoto(int Id)
         {
