@@ -16,11 +16,12 @@ namespace SehirRehberi.API.Helpers
                 .ForMember(dest => dest.Url, opt =>
                 {
                     opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+                })
+                .ForMember
+                (dest => dest.UserName, opt =>
+                {
+                    opt.MapFrom(src => src.User.UserName);
                 });
-                //.ForMember(dest => dest.UserName, opt =>
-                //{
-                //    opt.MapFrom(src => src.User);
-                //});
 
             CreateMap<City,CityForDetailDto>();
 
