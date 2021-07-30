@@ -26,15 +26,17 @@ namespace SehirRehberi.API.Data
 
         public List<City> GetCities()
         {
-            //
-            
-            var cities = _context.Cities.Include(c => c.Photos).ToList();
+
+            var cities = _context.Cities.Include(c => c.Photos)
+                .Include(c => c.User)
+                .ToList();
             
             return cities;
         }
         
         public City GetCityById(int cityId)
         {
+            
             var city = _context.Cities.Include(c => c.Photos).FirstOrDefault(c=>c.Id==cityId);
             return city;
         }
