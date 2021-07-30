@@ -17,7 +17,10 @@ using System.Threading.Tasks;
 namespace SehirRehberi.API.Controllers
 {
     [Produces("application/json")]
-    [Route("cities/photos")]
+
+    [Authorize]
+    [Route("cities/photos/")]
+
     public class PhotosController : Controller
     {
         private IAppRepository _appRepository;
@@ -47,6 +50,7 @@ namespace SehirRehberi.API.Controllers
             {
                 return BadRequest("Could not find the city");
             }
+
             var currentUserId = 0;
             System.Security.Claims.ClaimsPrincipal currentUser = HttpContext.User;
             if (currentUser.HasClaim(c => c.Type == ClaimTypes.NameIdentifier))
@@ -54,6 +58,14 @@ namespace SehirRehberi.API.Controllers
                 currentUserId = int.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             }
 
+<<<<<<< HEAD
+=======
+
+            //var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+
+
+>>>>>>> master
             if (currentUserId != city.UserId)
             {
                 return Unauthorized();

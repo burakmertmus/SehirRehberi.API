@@ -13,13 +13,19 @@ namespace SehirRehberi.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<City, CityForListDto>()
-                .ForMember(dest=>dest.Url,opt=> {
+                 .ForMember(dest => dest.UserName, opt =>
+                 {
+                     opt.MapFrom(src => src.User.UserName);
+                 })
+                .ForMember(dest => dest.Url, opt =>
+                {
                     opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
                 });
+
             CreateMap<City,CityForDetailDto>();
 
             CreateMap<PhotoForCreationDto,Photo>();
-            CreateMap<Photo,PhotoForReturnDto > ();
+            CreateMap<Photo, PhotoForReturnDto> ();
         }
     }
 }
