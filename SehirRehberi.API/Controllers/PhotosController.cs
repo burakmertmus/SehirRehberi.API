@@ -58,14 +58,10 @@ namespace SehirRehberi.API.Controllers
                 currentUserId = int.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             }
 
-<<<<<<< HEAD
-=======
 
             //var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
 
-
->>>>>>> master
             if (currentUserId != city.UserId)
             {
                 return Unauthorized();
