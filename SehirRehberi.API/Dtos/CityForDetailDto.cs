@@ -13,6 +13,7 @@ namespace SehirRehberi.API.Dtos
         public string Url { get; set; }
         public string Description { get; set; }
 
+        public int UserId { get; set; }
         public List<Photo> Photos { get; set; }
     }
 }
