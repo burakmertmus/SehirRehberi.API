@@ -14,10 +14,16 @@ namespace SehirRehberi.API.Data
         {
             _context = context;
         }
+        public void Add<T>(City city) where T : class
+        {
+            city.DateAdded = DateTime.Now;
+            _context.Add(city);
+        }
         public void Add<T>(T entity)where T:class
         {
             _context.Add(entity);
         }
+
 
         public void Delete<T>(T entity) where T : class
         {

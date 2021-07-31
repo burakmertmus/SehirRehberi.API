@@ -9,7 +9,7 @@ namespace SehirRehberi.API.Models
     {
         public Photo()
         {
-            //City = new List<Photo>();
+
         }
 
         public int Id { get; set; }
