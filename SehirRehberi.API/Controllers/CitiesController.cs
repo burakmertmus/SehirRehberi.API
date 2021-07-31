@@ -41,6 +41,11 @@ namespace SehirRehberi.API.Controllers
         [Route("add")]
         public ActionResult Add([FromBody] City city)
         {
+            
+            //TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+            //city.DateAdded=TimeZoneInfo.ConvertTimeFromUtc(city.DateAdded.Date, cstZone);
+
+
             _appRepository.Add(city);
             _appRepository.SaveAll();
             return Ok(city);
