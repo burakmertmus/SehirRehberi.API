@@ -24,6 +24,7 @@ namespace SehirRehberi.API.Controllers
             _mapper = mapper;
         }
 
+        //./cities
         [HttpGet]
         public ActionResult GetCities()
         {

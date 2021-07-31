@@ -40,7 +40,7 @@ namespace SehirRehberi.API.Controllers
 
             _cloudinary = new Cloudinary(account);
         }
-
+        //./cities/photos/cityId?={{cityId}}
         [HttpPost]
         public ActionResult AddPhotoForCity(int cityId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
@@ -60,7 +60,6 @@ namespace SehirRehberi.API.Controllers
 
 
             //var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
 
 
             if (currentUserId != city.UserId)
@@ -104,6 +103,9 @@ namespace SehirRehberi.API.Controllers
 
         }
 
+
+
+        //./cities/photos/{Id}
         [HttpGet("{Id}", Name = "GetPhoto")]
         public ActionResult GetPhoto(int Id)
         {
