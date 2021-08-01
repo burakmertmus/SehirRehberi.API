@@ -19,7 +19,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-//using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 using EnvironmentName = Microsoft.Extensions.Hosting.EnvironmentName;
 
 namespace SehirRehberi.API
@@ -79,7 +79,7 @@ namespace SehirRehberi.API
             //    });
 
             //services.AddSwaggerGen();
-            /*services.AddSwaggerGen(gen =>
+            services.AddSwaggerGen(gen =>
             {
                 OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme
                 {
@@ -125,10 +125,10 @@ namespace SehirRehberi.API
 
 
                 });
-              
+
 
             });
-            */
+
 
 
         }
@@ -147,10 +147,10 @@ namespace SehirRehberi.API
             app.UseSwagger();
            
 
-            /*app.UseSwaggerUI(c =>
+            app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });*/
+            });
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowCredentials());
             app.UseRouting();
             app.UseAuthentication();
