@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/SehirRehberi.API/appsettings.Development.json
+/SehirRehberi.API/appsettings.json
