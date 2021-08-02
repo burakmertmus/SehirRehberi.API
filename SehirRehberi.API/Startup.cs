@@ -136,7 +136,7 @@ namespace SehirRehberi.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            env.EnvironmentName = EnvironmentName.Production;
+            env.EnvironmentName = EnvironmentName.Development;
 
             if (env.IsDevelopment())
             {
