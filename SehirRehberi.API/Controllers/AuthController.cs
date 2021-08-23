@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SehirRehberi.API.Data;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace SehirRehberi.API.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("Auth")]
     public class AuthController : Controller
@@ -26,7 +28,7 @@ namespace SehirRehberi.API.Controllers
             _authRepository = authRepository;
             _configuration = configuration;
         }
-
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]UserForRegisterDto userForRegisterDto)
         {
@@ -48,7 +50,7 @@ namespace SehirRehberi.API.Controllers
             return StatusCode(201);
         }
 
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] UserForLoginDto userForLoginDto)
         {
