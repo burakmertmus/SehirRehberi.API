@@ -46,8 +46,12 @@ namespace SehirRehberi.API
             services.AddMvc().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             ); ;
-
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins(" https://cityguidebook.herokuapp.com/"));
+            });
+       
             services.AddScoped<IAppRepository, AppRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
