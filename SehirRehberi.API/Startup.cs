@@ -94,7 +94,7 @@ namespace SehirRehberi.API
                 app.UseDeveloperExceptionPage();
             }
             
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowAnyOrigin());
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowCredentials());
             app.UseHttpsRedirection();
 
             app.UseRouting();
