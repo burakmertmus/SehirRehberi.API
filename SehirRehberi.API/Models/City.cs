@@ -10,8 +10,8 @@ namespace SehirRehberi.API.Models
         public City()
         {
             Photos = new List<Photo>();
-            TimeZoneInfo GMT = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
-            DateAdded = TimeZoneInfo.ConvertTimeToUtc(DateAdded, GMT);
+            
+            
         }
         public int Id { get; set; }
         public int UserId { get; set; }
