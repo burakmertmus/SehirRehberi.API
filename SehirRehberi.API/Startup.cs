@@ -39,8 +39,20 @@ namespace SehirRehberi.API
 
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+              var server = "ohunm00fjsjs1uzy.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+            var port =  "3306";
+            var user ="t119sbcmgcb3t8cs";
+            var password ="	o9j57mhvbug7khqt";
+            var database = "ijqieeoec7qxtbs4";
 
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var ConnectionString = $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password};";
+
+
+
+          
+            
+            services.AddDbContext<DataContext>(x => x.UseMySql(ConnectionString, new MySqlServerVersion(new Version(8, 0, 23))));
+            
             services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().AddNewtonsoftJson(options =>
