@@ -64,7 +64,7 @@ namespace SehirRehberi.API.Controllers
 
 
         [HttpGet("cityId")]
-        [Route("CityPhotos")]
+        [Route("Photos")]
         public ActionResult GetPhotosById(int cityId)
         {
             var photos = _appRepository.GetPhotosByCity(cityId);
