@@ -162,15 +162,11 @@ namespace SehirRehberi.API
             /*app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-<<<<<<< HEAD
-            });
+
+            });*/
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowAnyOrigin());
             app.UseHttpsRedirection();
 
-=======
-            });*/
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowCredentials());
->>>>>>> 8cd360e0ab3cda9cbe730f24d7960af44b6cee0d
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
