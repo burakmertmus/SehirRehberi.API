@@ -7,9 +7,15 @@ namespace SehirRehberi.API.Dtos
 {
     public class CityForListDto
     {
+        public CityForListDto()
+        {
+            DateAdded=DateAdded.ToUniversalTime();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
         public string Description { get; set; }
+        public string UserName { get; set; }
+        public DateTime DateAdded { get; set; }
     }
 }

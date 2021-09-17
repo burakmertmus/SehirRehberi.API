@@ -14,10 +14,16 @@ namespace SehirRehberi.API.Data
         {
             _context = context;
         }
+        public void Add<T>(City city) where T : class
+        {
+            city.DateAdded = DateTime.Now;
+            _context.Add(city);
+        }
         public void Add<T>(T entity)where T:class
         {
             _context.Add(entity);
         }
+
 
         public void Delete<T>(T entity) where T : class
         {
@@ -26,15 +32,17 @@ namespace SehirRehberi.API.Data
 
         public List<City> GetCities()
         {
-            //
-            
-            var cities = _context.Cities.Include(c => c.Photos).ToList();
+
+            var cities = _context.Cities.Include(c => c.Photos)
+                .Include(c => c.User)
+                .ToList();
             
             return cities;
         }
         
         public City GetCityById(int cityId)
         {
+            
             var city = _context.Cities.Include(c => c.Photos).FirstOrDefault(c=>c.Id==cityId);
             return city;
         }

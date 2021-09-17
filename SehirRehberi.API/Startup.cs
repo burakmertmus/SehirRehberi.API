@@ -19,7 +19,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
+//using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 using EnvironmentName = Microsoft.Extensions.Hosting.EnvironmentName;
 
 namespace SehirRehberi.API
@@ -91,7 +91,7 @@ namespace SehirRehberi.API
             //    });
 
             //services.AddSwaggerGen();
-            services.AddSwaggerGen(gen =>
+            /*services.AddSwaggerGen(gen =>
             {
                 OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme
                 {
@@ -140,7 +140,7 @@ namespace SehirRehberi.API
               
 
             });
-
+            */
 
 
         }
@@ -155,17 +155,22 @@ namespace SehirRehberi.API
                 app.UseDeveloperExceptionPage();
             }
             // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
+            app.UseSwagger();
+           
+
+            /*app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+<<<<<<< HEAD
             });
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowAnyOrigin());
             app.UseHttpsRedirection();
 
+=======
+            });*/
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowCredentials());
+>>>>>>> 8cd360e0ab3cda9cbe730f24d7960af44b6cee0d
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
