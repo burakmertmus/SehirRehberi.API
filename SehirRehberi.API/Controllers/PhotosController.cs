@@ -19,7 +19,7 @@ namespace SehirRehberi.API.Controllers
     [Produces("application/json")]
 
     [Authorize]
-    [Route("cities/photos/")]
+    [Route("cities/photos")]
 
     public class PhotosController : Controller
     {
