@@ -163,7 +163,7 @@ namespace SehirRehberi.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowCredentials());
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true).AllowAnyOrigin());
             app.UseHttpsRedirection();
 
             app.UseRouting();
