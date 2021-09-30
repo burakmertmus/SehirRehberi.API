@@ -40,6 +40,7 @@ namespace SehirRehberi.API.Controllers
 
             _cloudinary = new Cloudinary(account);
         }
+
         //./cities/photos/cityId?={{cityId}}
         [HttpPost]
         public ActionResult AddPhotoForCity(int cityId, [FromForm] PhotoForCreationDto photoForCreationDto)
@@ -88,7 +89,8 @@ namespace SehirRehberi.API.Controllers
 
             var photo = _mapper.Map<Photo>(photoForCreationDto);
             photo.City = city;
-
+            photo.CityId = cityId;
+            photo.Description = city.Description;
             if (!city.Photos.Any(p => p.IsMain))
             {
                 photo.IsMain = true;
